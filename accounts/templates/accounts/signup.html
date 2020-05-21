@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Sign Up!</h1>
+
+{% if error %}
+{{ error }}
+<br><br>
+{% endif %}
+
+<!-- url format is '<app_name>:<url_name>' url_name is given with url regex -->
+<!-- in form action 'signup' is the name of the url we go to on submit (specified in urls.py)  -->
+<form method="POST" action="{% url 'accounts:signup' %}">
+	{% csrf_token %}
+	Username: <br>
+	<input type="text" name="username">
+	<br> Password: <br>
+	<input type="password" name="password1">
+	<br> Confirm Password: <br>
+	<input type="password" name="password2">
+	<br> Email ID: <br>
+	<input type="email" name="email">
+	<br><br>
+	<input class="btn btn-primary" type="submit">
+</form>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Products Page</h1>
+
+{% for product in all_products.all %}
+
+<table>
+	<tr><h2>{{ product.id }}</tr>
+	<tr><h2>{{ product.name }}</h2></tr>
+	<tr><img height="300" width="300" src="{{ product.photo.url }}"></tr><br>
+	<tr><h3>{{ product.cost }}</h3></tr>
+	<tr><a href="/products/{{ user.id }}/cart/{{ product.id }}" onClick="document.getElementById('add{{ user.id }}_{{ product.id }}').submit()"><button>Add to Cart</button></a></tr>
+</table>
+
+<br><br>
+
+<form id="add{{ user.id }}_{{ product.id }}" method="POST" action="{% url 'products:add2cart' pk=user.id pid=product.id %}">
+	{% csrf_token %}
+	<input type="hidden">
+</form>
+
+{% endfor %}
+
+{% endblock %}
