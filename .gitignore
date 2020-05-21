@@ -2,3 +2,4 @@ venv
 activate-venv
 *.pyc
 paytm_keys.py
+__pycache__

@@ -26,7 +26,7 @@ SECRET_KEY = '^dv1s1eyxn&wjx3$gtv0i=g60&e$@v8!4nmpsoc52t)now#^!9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['swastik-shop.herokuapp.com']
+ALLOWED_HOSTS = ['localhost','shopbox-swastik.herokuapp.com']
 
 
 # Application definition
