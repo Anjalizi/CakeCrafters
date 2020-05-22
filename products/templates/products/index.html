@@ -6,4 +6,8 @@
 
 <h2>Your one stop destination for all things fancy</h2>
 
+{% if user.is_authenticated %}
+	<h3>You are signed in as {{ request.user.username }}</h3>
+{% endif %}
+
 {% endblock %}

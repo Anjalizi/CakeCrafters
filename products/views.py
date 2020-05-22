@@ -8,7 +8,6 @@ def index(request):
 	# for shopbox homepage
     return render(request, 'products/index.html')
 
-@login_required
 def home(request):
 	products = Product.objects.order_by('cost')
 	return render(request, 'products/home.html', {'all_products':products})
@@ -21,13 +20,11 @@ def cart(request, pk):
 		total_cost += (obj.item.cost * obj.quantity)
 	return render(request, 'products/cart.html', {'all_items':cart_items, 'total_cost':total_cost})
 
-@login_required
 def category1(request):
 	# cost is less than or equal to 200
 	cat1_products = Product.objects.filter(cost__lte=200).order_by('cost')
 	return render(request, 'products/home.html', {'all_products':cat1_products})
 
-@login_required
 def category2(request):
 	# cost is greater than 200 and less than equal to 400
 	q1 = Product.objects.filter(cost__gt=200)

@@ -21,6 +21,9 @@ from django.conf.urls import url
 from django.conf.urls.static import static
 from django.conf import settings
 
+# for social login
+from django.contrib.auth import views as auth_views
+
 import products.views as product_views
 
 urlpatterns = [
@@ -30,5 +33,9 @@ urlpatterns = [
     path('checkout/',product_views.checkout, name='checkout'),
     path('', product_views.index, name='index'),
     path('', include('payments.urls')),
+
+    url(r'^login/$', auth_views.LoginView, name='login'),
+    url(r'^logout/$', auth_views.LogoutView, name='logout'),
+    url(r'^oauth/', include('social_django.urls', namespace='social')),  # <
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

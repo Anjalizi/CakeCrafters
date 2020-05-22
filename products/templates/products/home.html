@@ -13,15 +13,17 @@
 	<tr><h2>{{ product.name }}</h2></tr>
 	<tr><img src="{{ product.photo.url }}"></tr><br>
 	<tr><h4>{{ product.cost }}</h4></tr>
-	<tr><a href="/products/{{ user.id }}/cart/{{ product.id }}" onClick="document.getElementById('add{{ user.id }}_{{ product.id }}').submit()"><button>Add to Cart</button></a></tr>
+	{% if user.is_authenticated %}
+		<tr><a href="/products/{{ user.id }}/cart/{{ product.id }}" onClick="document.getElementById('add{{ user.id }}_{{ product.id }}').submit()"><button>Add to Cart</button></a></tr>
+		
+		<form id="add{{ user.id }}_{{ product.id }}" method="POST" action="{% url 'products:add2cart' pk=user.id pid=product.id %}">
+			{% csrf_token %}
+			<input type="hidden">
+		</form>
+	{% endif %}
 </table>
 
 <br><br>
-
-<form id="add{{ user.id }}_{{ product.id }}" method="POST" action="{% url 'products:add2cart' pk=user.id pid=product.id %}">
-	{% csrf_token %}
-	<input type="hidden">
-</form>
 
 {% endfor %}
 
