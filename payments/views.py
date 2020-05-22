@@ -26,7 +26,7 @@ def initiate_payment(request):
 			('CHANNEL_ID', settings.PAYTM_CHANNEL_ID),
 			('WEBSITE', settings.PAYTM_WEBSITE),
 			('INDUSTRY_TYPE_ID', settings.PAYTM_INDUSTRY_TYPE_ID),
-			('CALLBACK_URL', 'http://127.0.0.1:8000/callback/'),
+			('CALLBACK_URL', '*/callback/'),
 		)
 
 		paytm_params = dict(params)
