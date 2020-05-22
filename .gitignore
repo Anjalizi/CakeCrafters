@@ -1,4 +1,2 @@
-venv
-activate-venv
 *.pyc
 __pycache__
