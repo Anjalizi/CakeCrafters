@@ -1,30 +1,43 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load static %}
 
-<h2>Cart of {{ user.username }}</h2>
-<h3>ID is {{ user.id }}</h3>
-<br>
+<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
 
-{% for product in all_items.all %}
+<h2>Your Cart</h2><br>
 
-<table>
-	<tr><h5>{{ product.item.name }}</h5></tr>
-	<tr><h5>{{ product.item.cost }}</h5></tr>
-	<tr><h5>Quantity = {{ product.quantity }}</h5></tr>
-	<tr><a href="/products/{{ user.id }}/cart/remove/{{ product.item.id }}" onClick="document.getElementById('remove{{ user.id }}_{{ product.item.id }}').submit()"><button>Remove</button></a></tr>
-</table>
+{% if all_items.count == 0 %}
+	<h4>Your cart looks empty, Let's buy something</h4>
+	<h4>Go to Products Page</h4>
 
-<br>
+{% else %}
+	{% for product in all_items.all %}
 
-<form id="remove{{ user.id }}_{{ product.item.id }}" method="POST" action="{% url 'products:removeFromCart' pk=user.id pid=product.item.id %}">
-	{% csrf_token %}
-	<input type="hidden">
-</form>
+	<table>
+		<tr><h5>{{ product.item.name }}</h5></tr>
+		<tr><i class="fas fa-rupee-sign"></i>{{ product.item.cost }}</tr><br>
+		<tr><a href="/products/{{ user.id }}/cart/{{ product.item.id }}" onClick="document.getElementById('add{{ user.id }}_{{ product.item.id }}').submit()"><i class="fas fa-caret-up"></i></a>
+		<tr><h4>{{ product.quantity }}</h4></tr>
+		<tr><a href="/products/{{ user.id }}/cart/remove/{{ product.item.id }}" onClick="document.getElementById('remove{{ user.id }}_{{ product.item.id }}').submit()"><i class="fas fa-caret-down"></i></a></tr>
+	</table>
 
-{% endfor %}
+	<br>
 
-<h4>Total Cost is {{ total_cost }}</h4>
-<h4><a href="/checkout">Checkout</a></h4>
+	<form id="add{{ user.id }}_{{ product.item.id }}" method="POST" action="{% url 'products:add2cart' pk=user.id pid=product.item.id %}">
+		{% csrf_token %}
+		<input type="hidden">
+	</form>
+
+	<form id="remove{{ user.id }}_{{ product.item.id }}" method="POST" action="{% url 'products:removeFromCart' pk=user.id pid=product.item.id %}">
+		{% csrf_token %}
+		<input type="hidden">
+	</form>
+
+	{% endfor %}
+
+	<h4>Total Cost is {{ total_cost }}</h4>
+	<h4><a href="/checkout">Checkout</a></h4>
+{% endif %}
 
 {% endblock %}

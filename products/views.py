@@ -45,7 +45,7 @@ def add2cart(request, pk, pid):
 	except ObjectDoesNotExist:
 		cart_item = ActiveCart.objects.create(item=product, buyer=buyer, quantity=1)
 	cart_item.save()
-	return redirect('products:home')
+	return redirect('products:cart', pk=pk)
 
 @login_required
 def removeFromCart(request, pk, pid):
