@@ -26,7 +26,7 @@ def initiate_payment(request):
 			('CHANNEL_ID', settings.PAYTM_CHANNEL_ID),
 			('WEBSITE', settings.PAYTM_WEBSITE),
 			('INDUSTRY_TYPE_ID', settings.PAYTM_INDUSTRY_TYPE_ID),
-			('CALLBACK_URL', '*/callback/'),
+			('CALLBACK_URL', 'https://shopbox-swastik.herokuapp.com/callback/'),
 		)
 
 		paytm_params = dict(params)
